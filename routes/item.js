@@ -37,6 +37,14 @@ router.post('/',(req,res) =>{
     })
 })
 
+router.get('/',(req,res) =>{
+    var query ="SELECT * FROM item"
+    connection.query(query,(err,rows)=>{
+        if (err)throw err;
+        res.send(rows)
+    })
+
+})
 
 
 
