@@ -46,6 +46,21 @@ router.get('/',(req,res) =>{
 
 })
 
+router.put('/',(req,res)=>{
+    const id =req.body.id
+    const name=req.body.name
+    const address=req.body.address
+    const mobileno=req.body.mobileno
 
+    var query ="UPDATE customer SET name=?, address=?, mobileno=? WHERE id=?"
+    connection.query(query,[name,address,mobileno,id],(err,rows)=>{
+        if (err)throw err;
+        if (rows.affectedRows > 0){
+            res.send({'message ': 'Customer Updated!' })
+        }else{
+            res.send({'message ': 'Customer not found' })
+        }
+    })
+})
 
 module.exports=router
