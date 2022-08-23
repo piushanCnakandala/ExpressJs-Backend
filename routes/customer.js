@@ -10,7 +10,7 @@ connection.connect(function (err){
         console.log(err)
     }else {
         console.log('connected to the mysql server')
-        var tableQuery="CREATE TABLE IF NOT EXISTS customer (id VARCHAR(255) PRIMARY KEY,name VARCHAR(255),address VARCHAR(255),mobileNo VARCHAR(255))"
+        var tableQuery="CREATE TABLE IF NOT EXISTS customer (id VARCHAR(255) PRIMARY KEY,name VARCHAR(255),address VARCHAR(255),mobileno VARCHAR(255))"
         connection.query(tableQuery,function (err,result){
             if (err)throw  err;
             if (result.warningCount ==0){
@@ -21,5 +21,24 @@ connection.connect(function (err){
     }
 })
 
+router.post('/',(req,res) =>{
+    const id =req.body.id
+    const name=req.body.name
+    const address=req.body.address
+    const mobileno=req.body.mobileno
+
+    var query="INSERT INTO customer (id,name ,address,mobileno) VALUES (?, ?, ?, ?)"
+    connection.query(query,[id,name,address,mobileno],(err) =>{
+        if (err){
+            res.send({'message' : 'Duplicate entry'})
+        }else {
+            res.send({'message' : 'Customer Saved!'})
+        }
+    })
+})
+
+
+
+})
 
 module.exports=router
