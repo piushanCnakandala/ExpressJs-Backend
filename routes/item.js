@@ -77,4 +77,14 @@ router.delete('/:id',(req,res)=>{
     })
 })
 
+router.get('/:id',(req,res)=>{
+    const id=req.params.id
+
+    var query ='SELECT * FROM item WHERE id=?';
+    connection.query(query,[id],(err,rows) =>{
+        if(err)throw err;
+        res.send(rows)
+    })
+})
+
 module.exports=router
