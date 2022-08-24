@@ -44,4 +44,20 @@ router.get('/',(req,res) =>{
 
 })
 
+router.put('/',(req,res)=>{
+    const id =req.body.id
+    const date=req.body.date
+    const customer_id=req.body.customer_id
+
+    var query ="UPDATE orders SET date=?, customer_id=? WHERE id=?"
+    connection.query(query,[date,customer_id,id],(err,rows)=>{
+        if (err)throw err;
+        if (rows.affectedRows > 0){
+            res.send({'message ': 'Order Updated!' })
+        }else{
+            res.send({'message ': 'Order not found' })
+        }
+    })
+})
+
 module.exports=router
