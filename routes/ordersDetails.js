@@ -61,5 +61,18 @@ router.put('/',(req,res)=>{
     })
 })
 
+router.delete('/:id',(req,res)=>{
+    const order_id=req.params.order_id
+
+    var query= "DELETE FROM order_details WHERE order_id =?";
+    connection.query(query,[order_id],(err,rows) =>{
+        if (err)throw err;
+        if (rows.affectedRows > 0){
+            res.send({'message ' : 'Order_details deleted!'})
+        }else{
+            res.send({'message ' : 'Order_details not found'})
+        }
+    })
+})
 
 module.exports=router
