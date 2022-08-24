@@ -21,5 +21,20 @@ connection.connect(function (err){
     }
 })
 
+router.post('/',(req,res) =>{
+    const order_id = req.body.order_id;
+    const item_id = req.body.item_id;
+    const qty = req.body.qty;
+
+    var query="INSERT INTO order_details (order_id,item_id ,qty) VALUES (?, ?, ?)"
+    connection.query(query,[order_id,item_id,qty],(err) =>{
+        if (err){
+            res.send({'message' : 'Duplicate entry'})
+        }else {
+            res.send({'message' : 'Order_details Saved!'})
+        }
+    })
+})
+
 
 module.exports=router
