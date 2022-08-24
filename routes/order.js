@@ -5,5 +5,19 @@ const mysql=require('mysql')
 const db=require('../configs/db.configs')
 const connection =mysql.createConnection(db.database)
 
+connection.connect(function (err){
+    if (err){
+        console.log(err)
+    }else{
+        console.log('connected to the mysql server')
+        var tableQuery="CREATE TABLE IF NOT EXISTS orders (id VARCHAR(255) PRIMARY KEY ,date VARCHAR(255),customer_id VARCHAR(255))";
+        connection.query(tableQuery,function (err,result){
+            if (err)throw err;
+            if (result.warningCount ==0){
+                console.log("Order Table Created!");
+            }
+        })
+    }
+})
 
 module.exports=router
